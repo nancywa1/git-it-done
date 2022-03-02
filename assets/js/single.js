@@ -12,6 +12,21 @@ var getRepoName = function () {
         document.location.replace("./index.html");
     }
 }
+var getFeaturedRepos = function(language) {
+    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+  
+    fetch(apiUrl).then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+            displayRepos(data.items, language);
+          });
+      } else {
+        alert('Error: GitHub User Not Found');
+      }
+    });
+}
+  
+
 var getRepoIssues = function (repo) {
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
 
